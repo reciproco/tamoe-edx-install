@@ -1,0 +1,146 @@
+---
+# vars organization
+##############################
+# 1. global Open edX settings
+# 2. Email settings
+# 3. API Keys, passwords, and socialmedia
+# 4. DB users/passwords
+# 5. Nginx and server resources
+##############################
+
+########## 1. global Open edX settings ##########
+EDXAPP_LANG: 'es_ES.UTF-8'
+EDXAPP_LANGUAGE_CODE : 'es-419'
+EDXAPP_TIME_ZONE: 'Europe/Madrid'
+
+EDXAPP_PLATFORM_NAME: 'REDIL EDX'
+EDXAPP_SITE_NAME: 'cursos.example.com'
+EDXAPP_LMS_BASE: 'cursos.example.com'
+EDXAPP_CMS_BASE: 'cursos.example.com:18010'
+
+
+
+# Comprehensive Theming
+EDXAPP_COMPREHENSIVE_THEME_DIR: "/edx/custom_theme"
+
+########## 2. start Email settings ##########
+EDXAPP_EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+EDXAPP_EMAIL_HOST: 'localhost'
+EDXAPP_EMAIL_PORT: 25
+EDXAPP_EMAIL_USE_TLS: False
+EDXAPP_EMAIL_HOST_USER: ''
+EDXAPP_EMAIL_HOST_PASSWORD: ''
+
+#EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
+#EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
+EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
+EDXAPP_CONTACT_EMAIL: 'info@example.com'
+EDXAPP_BUGS_EMAIL: 'bugs@example.com'
+EDXAPP_DEFAULT_FROM_EMAIL: 'registration@example.com'
+#EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@example.com'
+EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@example.com'
+EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@example.com'
+EDXAPP_BULK_EMAIL_LOG_SENT_EMAILS: false
+#EDXAPP_UNIVERSITY_EMAIL: 'university@example.com'
+#EDXAPP_PRESS_EMAIL: 'press@example.com'
+
+########## end email settings ##########
+
+########## 3. start API Keys, passwords, and socialmedia ##########
+EDXAPP_EDXAPP_SECRET_KEY: "CHANGEME"
+
+#EDXAPP_CELERY_USER: 'celery'
+#EDXAPP_CELERY_PASSWORD: 'celery'
+
+# used to salt hashed usernames for profile image filenames
+#EDXAPP_PROFILE_IMAGE_SECRET_KEY: placeholder_secret_key
+
+########## end API Keys, passwords, and socialmedia ##########
+
+########## 4. start DB users/passwords ##########
+
+COMMON_MYSQL_READ_ONLY_USER: 'read_only'
+COMMON_MYSQL_READ_ONLY_PASS: 'password'
+COMMON_MYSQL_ADMIN_USER: 'admin'
+COMMON_MYSQL_ADMIN_PASS: 'password'
+COMMON_MYSQL_MIGRATE_USER: 'migrate'
+COMMON_MYSQL_MIGRATE_PASS: 'password'
+
+COMMON_MONGO_READ_ONLY_USER: 'read_only'
+COMMON_MONGO_READ_ONLY_PASS: !!null
+COMMON_ENABLE_DATADOG: False
+COMMON_ENABLE_NGINXTRA: False
+COMMON_ENABLE_SPLUNKFORWARDER: False
+COMMON_ENABLE_NEWRELIC: False
+
+EDXAPP_MONGO_PASSWORD: 'password'
+EDXAPP_MONGO_USER: 'edxapp'
+EDXAPP_MONGO_DB_NAME: 'edxapp'
+EDXAPP_MONGO_USE_SSL: False
+
+EDXAPP_MYSQL_DB_NAME: 'edxapp'
+EDXAPP_MYSQL_USER: 'edxapp001'
+EDXAPP_MYSQL_USER_ADMIN: 'root'
+EDXAPP_MYSQL_PASSWORD: 'password'
+EDXAPP_MYSQL_PASSWORD_READ_ONLY: 'password'
+EDXAPP_MYSQL_PASSWORD_ADMIN: 'password'
+
+
+########## end DB users/passwords ##########
+
+########## 5. start Nginx and server resources ##########
+
+EDXAPP_LMS_NGINX_PORT: 80
+#EDXAPP_LMS_SSL_NGINX_PORT: 48000
+#EDXAPP_LMS_PREVIEW_NGINX_PORT: 18020
+EDXAPP_CMS_NGINX_PORT: 18010
+#EDXAPP_CMS_SSL_NGINX_PORT: 48010
+
+NGINX_ENABLE_SSL: False
+#NGINX_REDIRECT_TO_HTTPS: False
+#NGINX_SSL_CERTIFICATE: 'ssl-cert-snakeoil.pem'
+#NGINX_SSL_KEY: 'ssl-cert-snakeoil.key'
+
+#CMS_HOSTNAME: '~^((stage|prod)-)?studio.*'
+#ECOMMERCE_HOSTNAME: '~^((stage|prod)-)?ecommerce.*'
+#PROGRAMS_HOSTNAME: '~^((stage|prod)-)?programs.*'
+
+# Set global htpasswd credentials
+COMMON_ENABLE_BASIC_AUTH: False
+#COMMON_HTPASSWD_USER: edx
+#COMMON_HTPASSWD_PASS: edx
+
+EDXAPP_WORKERS:
+  lms: 1
+  cms: 1
+EDXAPP_CELERY_WORKERS:
+  - queue: low
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: default
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: high
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: low
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: default
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: high
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: high_mem
+    service_variant: lms
+    concurrency: 1
+    monitor: False
+    max_tasks_per_child: 1
+########## end Nginx and server resources ##########
