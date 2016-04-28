@@ -2,7 +2,7 @@
 ##
 ## Installs and configure monitoring
 export OPENEDX_RELEASE="named-release/dogwood.3"
-
+export EXTRA_VARS="-e@/edx/app/edx_ansible/server-vars.yml"
 ## Did we specify an openedx release?
 if [ -n "$OPENEDX_RELEASE" ]; then
   EXTRA_VARS="$EXTRA_VARS -e edx_platform_version=$OPENEDX_RELEASE \
