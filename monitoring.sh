@@ -16,6 +16,7 @@ else
   CONFIG_VER="master"
 fi
 
+cp $PWD/monitoring.yml /edx/app/edx_ansible/edx_ansible/playbooks
 ##
 ## Run the monitoring.yml playbook in the configuration/playbooks directory
 ##
